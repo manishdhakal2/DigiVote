@@ -4,6 +4,8 @@
             Python3
             PyQt5 installed
                 pip install PyQt5
+                pip install mysql.connector
+                
 
             Warning : Set Your Resolution to 1920x1080 , currently supports this resolution only
             
