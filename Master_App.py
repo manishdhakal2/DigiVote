@@ -1,5 +1,5 @@
 # D I S C L A I M E R:
-    # I have added the comments myself for easier readability of the program
+    # I have added  comments  for easier readability of the program
       # App developed by :
               # Manish Dhakal
               # Jaiman Shrestha
@@ -32,6 +32,7 @@ ip_address="localhost"
 
 
 #----------------------------------------------------------------------------#
+#Create a class that add the info about the participant to the database
 
 
 class Projectt:
@@ -65,7 +66,11 @@ class Projectt:
                 conn.close()
       
 
+
 #----------------------------------------------------------------------------#
+#Delete Every Data From The Database
+#----------------------------------------------------------------------------#
+                
 
 def deleteAll():
     result=messagebox.askyesno(title="Delete All Projects?",message="Are You Sure You Want To Delete All?",parent=dispwin)
@@ -85,17 +90,25 @@ def deleteAll():
         return
 
 
+#----------------------------------------------------------------------------#
+#Store The Ip In The Server_Ip.txt file
+#----------------------------------------------------------------------------#
+
 def store_data(file_name,data):
 
     if os.path.exists(file_name):
-        print("noooo")
+        
         with open(file_name,'w') as filee:
             filee.write(data)
     else:
-        print("Hello")
+        
         with open(file_name,'w') as filee:
             filee.write(data)
-    
+
+#----------------------------------------------------------------------------#
+#View The Ip In The Server_Ip.txt file
+#----------------------------------------------------------------------------#
+            
 def open_ip():
     global ip_address
     try:
@@ -104,17 +117,26 @@ def open_ip():
     except FileNotFoundError:
         ip_address="localhost"
     return ip_address
+
+#----------------------------------------------------------------------------#
+#Prompt the user to add a server Ip
+#----------------------------------------------------------------------------#
         
         
 def get_ip():
     global ip,current_ip
     ip=ip_entry.get()
     ip_entry.delete(0,len(ip))
-    print(ip)
+    
     current_ip.destroy()
     store_data("Server_Ip.txt",ip)
     current_ip=Label(ipwin,text=f"Current IP : {ip}",font=("Helvetica",25),bg="#7393A7",fg="green")
     current_ip.place(x=30,y=300)
+
+
+#----------------------------------------------------------------------------#
+#Delete a desired data from the db
+#----------------------------------------------------------------------------#
 
 
 
@@ -140,14 +162,19 @@ def deletefromdb(event,Pname): #Deletes From Database
         return
 
 #----------------------------------------------------------------------------#
+    #Converts Image BLOB to hexadecimal
+#----------------------------------------------------------------------------#
 
-def blob_to_hex(blob):  #Converts Image BLOB to hexadecimal
+def blob_to_hex(blob):  
     hex_representation = ''.join(format(byte, '02x') for byte in blob)
     return hex_representation
 
 #----------------------------------------------------------------------------#
+    #Convert  hexadecimal to resized image
+#----------------------------------------------------------------------------#
 
-def hex_to_resized_image(hex_string, new_size): #Convert Hex To Resized Image
+def hex_to_resized_image(hex_string, new_size): 
+
     binary_data = bytes.fromhex(hex_string)
     byte_stream = io.BytesIO(binary_data)
     original_image = Image.open(byte_stream)
@@ -162,9 +189,12 @@ def resize_image(img_path,width,height):
     bgpic1=ImageTk.PhotoImage(resized_image)
     return bgpic1
 
+
+#----------------------------------------------------------------------------#
+#Creates new window for displaying individual data
 #----------------------------------------------------------------------------#
 
-def dispinfo(projname,details): #creates new window for displaying individual data
+def dispinfo(projname,details): 
     global infowin
     infowin=Toplevel(win)
     infowin.title(details[1])
@@ -195,7 +225,9 @@ def dispinfo(projname,details): #creates new window for displaying individual da
     
     infowin.mainloop()
 
-#----------------------------------------------------------------------------#    
+#----------------------------------------------------------------------------#   
+#Creates a window prompting the user to add IP address of the sever
+#----------------------------------------------------------------------------# 
     
 def add_ip():
     global ipwin,ip,ip_entry,current_ip
@@ -215,8 +247,13 @@ def add_ip():
     current_ip=Label(ipwin,text=f"Current IP : {ip}",font=("Helvetica",25),bg="#7393A7",fg="green")
     current_ip.place(x=30,y=300)
 
-    
-def creategrid(arg): #creates the project lists
+
+
+#----------------------------------------------------------------------------#
+    #Retrieves The Info About Participants From The Database And Places It In the View Window
+#----------------------------------------------------------------------------#
+ 
+def creategrid(arg): 
     b=len(arg)
     def on_enter(event,label):
         label.config(bg="grey")
@@ -245,7 +282,10 @@ def creategrid(arg): #creates the project lists
 
 
 #----------------------------------------------------------------------------#
-def clear_all(): #clears the added data on clicking submit button
+            #clears the added data on clicking submit button
+#----------------------------------------------------------------------------#
+            
+def clear_all(): 
     for  k in range(0,len(entry_widgets)):
         entry_widgets[k].delete(0,len(entry_widgets[k].get()))
         entry_widgets[k].destroy()
@@ -254,9 +294,12 @@ def clear_all(): #clears the added data on clicking submit button
     partcount.delete(0,len(partcount.get()))
     id_entry.delete(0,len(id_entry.get()))
 
+
+#----------------------------------------------------------------------------#
+    #Retrieves The Data From The Input Fields After Clicking the submit button and creates an object of class Project
 #----------------------------------------------------------------------------#
      
-def submit(): #creates an object of class 
+def submit(): #
     if partcount.get()==None: 
         messagebox.showwarning(title="Value Error",message="Fill Out All The Fields",parent=addwin)
     global success
@@ -284,9 +327,12 @@ def submit(): #creates an object of class
     clear_all()
     addwin.after(3000,lambda:success.destroy())
 
+
 #----------------------------------------------------------------------------#
-    
-def participant_names(): #Creates An environment for entering participant names
+    #Creates An environment for entering participant names
+#----------------------------------------------------------------------------#
+      
+def participant_names(): 
 
     global c,entry_widgets,partlbls
     try:
@@ -313,6 +359,9 @@ def participant_names(): #Creates An environment for entering participant names
         c+=50
     
 #----------------------------------------------------------------------------#
+        #Prompts the user to select an Image of The Participant
+#----------------------------------------------------------------------------#
+
     
 def openfile():
     global filepath
@@ -323,16 +372,23 @@ def openfile():
 
 
 #----------------------------------------------------------------------------#
-def toggle_fullscreen(wind,event=None): #bind f11 to fullscreen
+    #binds f11 to fullscreen
+#----------------------------------------------------------------------------#
+    
+def toggle_fullscreen(wind,event=None): 
     state = not wind.attributes('-fullscreen')
     wind.attributes('-fullscreen', state)
 
+#----------------------------------------------------------------------------#
+    #Goes back to previous Window
 #----------------------------------------------------------------------------#
 
 def goback(window): 
     win.deiconify()
     window.destroy()
     
+#----------------------------------------------------------------------------#
+    #Places the back button
 #----------------------------------------------------------------------------#
 
 def placeback(window,color): #Places the back button
@@ -341,8 +397,10 @@ def placeback(window,color): #Places the back button
     backlabel.bind("<Button-1>", lambda event=None: goback(window))
 
 #----------------------------------------------------------------------------#
+    #Creates  A new window for adding data
+#----------------------------------------------------------------------------#
 
-def adddata(): #Creates  A new window for adding data
+def adddata(): 
 
     global addwin,partcount,entname,id_entry
     addwin=Toplevel(win)
@@ -381,8 +439,10 @@ def adddata(): #Creates  A new window for adding data
     addwin.mainloop()
 
 #----------------------------------------------------------------------------#
+    #creates a new window for displaying all entered data
+#----------------------------------------------------------------------------#
     
-def dispdata(): #creates a new window for displaying all entered data
+def dispdata(): 
     global dispwin
     dispwin=Toplevel(win)
     dispwin.title("Master Application - View Data")
@@ -409,9 +469,11 @@ def dispdata(): #creates a new window for displaying all entered data
     dispwin.mainloop()
 
 #----------------------------------------------------------------------------#
+     # Initialize The Main Screen
+#----------------------------------------------------------------------------#
 
 def main(): 
- # Initialize The Main Screen
+
     global win, canvas, bg_image,photo,fontss
     win = Tk()  
     win.title("DigiVote-Master Application")
@@ -439,4 +501,8 @@ def main():
     win.mainloop()
 
 #----------------------------------------------------------------------------#
-main()
+    #Start The Application
+#----------------------------------------------------------------------------#
+    
+if __name__=="__main__":
+    main()
