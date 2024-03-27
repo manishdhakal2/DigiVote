@@ -1,6 +1,9 @@
             _________________________ DigiVote- A Voting App______________
             Made Completely Using PyQt5 framework and SQL as database
 
+            pip install PyQt5
+            
+
             git clone https://github.com/manishdhakal2/DigiVote.git
 
             Things to be done before using :
