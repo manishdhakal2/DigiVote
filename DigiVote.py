@@ -24,10 +24,10 @@ import os
 class MainAppWindow(QWidget):
     def __init__(self):
         super().__init__()
-        background_image = QPixmap("main_background.png")
+        background_image = QPixmap("files//main_background.png")
         background_label = QLabel(self)
         background_label.setPixmap(background_image)
-        self.setWindowIcon(QIcon("App_Icon.png"))
+        self.setWindowIcon(QIcon("files//App_Icon.png"))
 
         start_button = QPushButton('VOTE NOW', self)
         button_style = '''
@@ -301,8 +301,8 @@ class View_Window(QWidget):
 
     def open_ip(self):
         ip_address="localhost"
-        if os.path.exists("Server_Ip.txt"):
-            with open("Server_Ip.txt","r") as filee:
+        if os.path.exists("files//Server_Ip.txt"):
+            with open("files//Server_Ip.txt","r") as filee:
                 ip_address=filee.read()
         else:
             ip_address="localhost"
@@ -436,12 +436,12 @@ class Thanks_Window(QWidget):
         self.setWindowTitle("Thank You")
         self.setGeometry(0,0,1920,1080)
         self.showFullScreen()
-        self.setWindowIcon(QIcon("App_Icon.png"))
+        self.setWindowIcon(QIcon("files//App_Icon.png"))
         self.init_ui()
     
     def init_ui(self):
         layout=QHBoxLayout()
-        self.bg_img=QPixmap("thanks.png")
+        self.bg_img=QPixmap("files//thanks.png")
         self.bg_label=QLabel(self)
         self.bg_label.setPixmap(self.bg_img)
         layout.addWidget(self.bg_label)
